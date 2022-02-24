@@ -1,5 +1,5 @@
 import {React} from 'react';
-import {View,Text,StyleSheet} from 'react-native';
+import {View,Text,StyleSheet,FlatList} from 'react-native';
 import { RFValue } from "react-native-responsive-fontsize";
 import AppLoading from "expo-app-loading";
 import firebase from "firebase";
@@ -17,13 +17,13 @@ export default class RemarkScreen extends React.Component {
     
     async fetchRemark(){
         let date , remarks;
-        const data = await db.collection("Students").where("Student_id","==",text).get()
-            data.docs.map(doc => {
-                this.setState({
-                    date : [...this.state.date.doc.data()],
-                    remark : this.state.text.doc.data(),
-                })
-            })
+        const data = await db.collection("Students").where("Student_id","==",currentUser.uid).get()
+        .then(doc => {
+            var info = doc.data()
+            date = info.Date
+            remarks = info.Text
+        })
+        this.setState({date : date, remark : remarks})
     }
 
     componentDidMount(){
@@ -37,10 +37,16 @@ export default class RemarkScreen extends React.Component {
                 <View style={styles.appTitleTextContainer}>
                     <Text style={styles.appTitleText}> Remarks </Text>
                 </View>
-                <View style={{marginTop : 30, flex : 1,}}>
-                    <Text> {this.state.date} </Text>
-                    <Text> {this.state.remark} </Text>
-                </View>
+                <FlatList
+                    renderItem = {() => {
+                        <View style={{marginTop : 30, flex : 1,}}>
+                            <Text> {this.state.date} </Text>
+                            <Text> {this.state.remark} </Text>
+                        </View>
+                    }}
+
+                    keyExtractor = {(index) => index.toString()}
+                />
             </View>
         )
     }

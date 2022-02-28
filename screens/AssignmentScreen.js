@@ -13,15 +13,59 @@ export default class AssignmentScreen extends React.Component {
                         <View style={{flex : 1,justifyContent : "center", alignItems : "center"}}>
                             <Text style={{ fontSize : 20, fontWeight : "bold"}}> Mathematics </Text>
                             <TextInput style={styles.searchBar}/>
-                            <ToucableOpacity 
+                            <TouchableOpacity 
                                 var text = "One Pending Assignment"
                                 style={styles.submitButton}
                                 onPress = {text => {
-                                    db.collection("Teachers").
+                                    db.collection("Teachers").add({
+                                        "Notification" : {
+                                           "Date" : firebase.firestore.Timestamp.now().toDate(),
+                                           "Text" : text, 
+                                           "Read" : false
+                                        }
+                                    })
                                 } }
                             > 
                                 <Text style={{fontSize : 15, fontWeight : "bold"}}> Submit </Text>
-                            </ToucableOpacity>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{flex : 1,justifyContent : "center", alignItems : "center"}}>
+                            <Text style={{ fontSize : 20, fontWeight : "bold"}}> English </Text>
+                            <TextInput style={styles.searchBar}/>
+                            <TouchableOpacity 
+                                var text = "One Pending Assignment"
+                                style={styles.submitButton}
+                                onPress = {text => {
+                                    db.collection("Teachers").add({
+                                        "Notification" : {
+                                           "Date" : firebase.firestore.Timestamp.now().toDate(),
+                                           "Text" : text, 
+                                           "Read" : false
+                                        }
+                                    })
+                                } }
+                            > 
+                                <Text style={{fontSize : 15, fontWeight : "bold"}}> Submit </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{flex : 1,justifyContent : "center", alignItems : "center"}}>
+                            <Text style={{ fontSize : 20, fontWeight : "bold"}}> Science </Text>
+                            <TextInput style={styles.searchBar}/>
+                            <TouchableOpacity 
+                                var text = "One Pending Assignment"
+                                style={styles.submitButton}
+                                onPress = {text => {
+                                    db.collection("Teachers").add({
+                                        "Notification" : {
+                                           "Date" : firebase.firestore.Timestamp.now().toDate(),
+                                           "Text" : text, 
+                                           "Read" : false
+                                        }
+                                    })
+                                } }
+                            > 
+                                <Text style={{fontSize : 15, fontWeight : "bold"}}> Submit </Text>
+                            </TouchableOpacity>
                         </View>
                     </ScrollView>
                 </View>

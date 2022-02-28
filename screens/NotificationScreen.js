@@ -12,22 +12,34 @@ export default class RemarkScreen extends React.Component {
         this.state={
             notification : "",
             date : "",
+            lastnotification : "",
         }
     }
     
-    async fetchRemark(){
+    async fetchNotification(){
         let date , notification;
-        const data = await db.collection("Students").where("Student_id","==",currentUser.uid).get()
-        .then(doc => {
+        const data = await db.collection("Students").where("Student_id","==",currentUser.uid).limit(10).get()
+        .docs.map(doc => {
+            var info = doc.data()
+            date = info.Date
+            notification = info.Text
+            lastnotification = info
+        })
+        this.setState({date : date, notification : notification, lastnotification : lastnotification})
+    }
+    async fetchMoreNotification(){
+        let date , notification;
+        const data = await db.collection("Students").where("Student_id","==",currentUser.uid).startAfter(this.state.lastnotification).limit(10).get()
+        .docs.map(doc => {
             var info = doc.data()
             date = info.Date
             notification = info.Text
         })
-        this.setState({date : date, notification : notification})
+        this.setState({date : date, notification : notification, lastnotification : lastnotification})        
     }
 
     componentDidMount(){
-        this.fetchRemark();
+        this.fetchNotification();
     }
     
 

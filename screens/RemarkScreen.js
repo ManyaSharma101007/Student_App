@@ -1,5 +1,5 @@
 import {React} from 'react';
-import {View,Text,StyleSheet,FlatList} from 'react-native';
+import {View,Text,StyleSheet,FlatList,} from 'react-native';
 import { RFValue } from "react-native-responsive-fontsize";
 import AppLoading from "expo-app-loading";
 import firebase from "firebase";
@@ -28,6 +28,7 @@ export default class RemarkScreen extends React.Component {
 
     componentDidMount(){
         this.fetchRemark();
+        
     }
     
 
